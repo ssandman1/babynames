@@ -1,0 +1,139 @@
+---
+title: "Most Commonly Used Baby Names"
+description: |
+   Analysis of the popularity of common baby names
+preview: https://technobb.com/wp-content/uploads/2018/08/cute-babies-pics-for-whatsapp-dp.jpg
+author:
+  - name: Sara Sandman
+    url: {}
+date: 05-16-2019
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(mosaicData)
+library(babynames)
+library(dplyr)
+library(ggplot2)
+library(plotly)
+```
+
+![Image from: https://technobb.com/wp-content/uploads/2018/08/cute-babies-for-dps.jpg](https://technobb.com/wp-content/uploads/2018/08/cute-babies-pics-for-whatsapp-dp.jpg){width=300, align=center}
+
+
+Popularity of certain names over others fluctuates depending on the time period. For example, according to the [Social Security Association](https://www.ssa.gov), in 2018 the most popular baby name for males was Liam, however, in 1960, David was the most popular name among male babies.
+
+While the importance of giving a baby an appropriate name has always been known to parents, the definition of what an appropriate name is keeps changing. These changes could be due to a variety of reasons such as: the rise in celebrities giving their babies non-traditional names like Kulture or Blue Ivy, or a preference for gender neutral names. 
+
+With the landscape of baby names rapidly changing, lets look at the most common names now, and how these names have varied in popularity in the past. According to the [Centers for Disease Control](https://www.cdc.gov/nchs/data/vsrr/report004.pdf), the number of births in 2017 was 3,853,472, which was down 2% from 2016 and the lowest number in 30 years. The most popular names given to these babies are shown bellow.
+
+## Most Popular Baby Names in 2017
+
+```{r}
+babynames %>% 
+  filter(year==2017) %>% 
+  arrange(desc(n)) %>% 
+  head(n=5) %>% 
+  plot_ly(x=~name, y=~n, type="bar") %>% 
+  layout(xaxis=list(title=""),
+         yaxis=list(title=""))
+
+```
+
+Using data from the Social Security Administration, the names above are the most common names given to babies in 2017. 
+
+## Popularity of Names Across Time
+
+### Ava 
+
+* Total females in 2017: 15902
+* Total males in 2017: 12
+* Average males per year named Ava: 16
+* Average females per year named Ava: 1,817
+
+```{r fig.cap="Number of babies named Ava from 1880 to 2017"}
+ava<-babynames %>% 
+  filter(name=="Ava") %>% 
+  ggplot(aes(x=year,y=n))+
+  geom_line(aes(color=sex))+
+  labs(x=NULL,y=NULL)
+
+ggplotly(ava)
+```
+
+### Emma
+
+* Total females in 2017: 19,738
+* Total males in 2017: 14
+* Average males per year named Emma: 14 
+* Average females per year named Emma: 4,739
+
+```{r fig.cap="Number of babies named Emma from 1880 to 2017"}
+emma<-babynames %>% 
+  filter(name=="Emma") %>% 
+  ggplot(aes(x=year,y=n))+
+  geom_line(aes(color=sex))+
+  labs(x=NULL,y=NULL)
+
+ggplotly(emma)
+```
+
+### Liam
+
+* Total females in 2017: 36
+* Total males in 2017: 18,728
+* Average males per year named Liam: 2,919
+* Average females per year named Liam: 17
+
+```{r fig.cap="Number of babies named Liam from 1880 to 2017"}
+liam<-babynames %>% 
+  filter(name=="Liam") %>% 
+  ggplot(aes(x=year,y=n))+
+  geom_line(aes(color=sex))+
+  labs(x=NULL,y=NULL)
+
+ggplotly(liam)
+```
+
+### Noah
+
+* Total females in 2017: 170
+* Total males in 2017: 18,326
+* Average males per year named Noah: 2,719
+* Average females per year named Noah: 44
+
+```{r fig.cap="Number of babies named Noah from 1880 to 2017"}
+noah<-babynames %>% 
+  filter(name=="Noah") %>% 
+  ggplot(aes(x=year,y=n))+
+  geom_line(aes(color=sex))+
+  labs(x=NULL,y=NULL)
+
+ggplotly(noah)
+```
+
+### Olivia
+
+* Total females in 2017: 18,632
+* Total males in 2017: 10
+* Average males per year named Olivia: 12
+* Average females per year named Olivia: 3,147
+
+```{r fig.cap="Number of babies named Olivia from 1880 to 2017"}
+olivia<-babynames %>% 
+  filter(name=="Olivia") %>% 
+  ggplot(aes(x=year,y=n))+
+  geom_line(aes(color=sex))+
+  labs(x=NULL,y=NULL)
+
+ggplotly(olivia)
+```
+
+## Sources
+
+* https://www.cdc.gov/nchs/data/vsrr/report004.pdf
+
+* https://www.ssa.gov/news/press/factsfig.html
